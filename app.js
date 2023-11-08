@@ -7,9 +7,9 @@ const HIDDEN_CLASSNAME = "hidden";
 
 function onLoginSubmit(event) { //event object는 기본적으로 preventDefault함수를 갖음.
     event.preventDefault(); //브라우저가 기본적으로 수행하는 동작(기본 행동)을 막음
+    loginForm.classList.add(HIDDEN_CLASSNAME);
     const username = loginInput.value;
-    loginForm.classList.add("hidden");
-    console.log(username);
+    localStorage.setItem("username", username);
     greeting.innerText = `Hello ${username}`; //변수와 string을 결합할때, 변수를 string안에 집어넣고 싶을때
     greeting.classList.remove(HIDDEN_CLASSNAME)
 }
