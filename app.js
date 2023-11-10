@@ -14,7 +14,7 @@ function onLoginSubmit(event) { //event object는 기본적으로 preventDefault
     painGreeting(username);
 }
 
-function painGreeting(username) {
+function painGreeting(username) {   
     greeting.innerText = `Hello ${username}`; //변수와 string을 결합할때, 변수를 string안에 집어넣고 싶을때
     greeting.classList.remove(HIDDEN_CLASSNAME);
 }
