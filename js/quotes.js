@@ -39,6 +39,10 @@ const quotes = [
         quote: "방광암 박주헌",
         author: "박진호(ji-no-park)",
     },
+    {
+        quote: "네 번째 우승은 우리 팀을 위한 것입니다.",
+        author: "이상혁(Faker)",
+    },
 
 ];
 
