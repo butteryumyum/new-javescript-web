@@ -2,11 +2,21 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = document.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
+function deleteToDo(event) { //X를 클릭할때, event를 얻게 됨
+	const li = event.target.parentElement; //event가 target을 주고, button의 부모에 접근함
+	li.remove(); //	button의 부모는 li이므로, li를 삭제 = button을 삭제
+}
+
 function paintToDo(newTodo) {
-	    const li = document.createElement("li"); //element (li)를 생성함
-	    const span = document.createElement("span"); //elemnt (span)을 생성
-    li.appendChild(span); //li안에 span을 종속
-    span.innerText = newTodo; //text 교체
+    const li = document.createElement("li"); //element (li)를 생성함
+    const span = document.createElement("span"); //elemnt (span)을 생성
+		span.innerText = newTodo; //text 교체	
+	const button = document.createElement("button");	
+		button.innerText = "❌";
+		button.addEventListener("click", deleteToDo);
+	li.appendChild(span); //li안에 span을 종속
+	li.appendChild(button); //li안에 button을 종속
+    
     toDoList.appendChild(li); //toDoList안에 li를 종속
 }
 
