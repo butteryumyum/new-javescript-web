@@ -2,6 +2,12 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = document.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
+const toDos = [];
+
+function saveToDos() {
+	localStorage.setItem("todos", JSON.stringify(toDos));
+}
+
 function deleteToDo(event) { //X를 클릭할때, event를 얻게 됨
 	const li = event.target.parentElement; //event가 target을 주고, button의 부모에 접근함
 	li.remove(); //	button의 부모는 li이므로, li를 삭제 = button을 삭제
@@ -20,10 +26,12 @@ function paintToDo(newTodo) {
     toDoList.appendChild(li); //toDoList안에 li를 종속
 }
 
-function handleToDoList(event) { //submit event(새로고침)
+function handleToDoSubmit(event) { //submit event(새로고침)
     event.preventDefault(); //기본동작 막음
 	    const newTodo = toDoInput.value;
 	    toDoInput.value = "";
+		toDos.push(newTodo);
 	    paintToDo(newTodo); //paintToDo 호출
+		saveToDos(); 
 }
-	toDoForm.addEventListener("submit", handleToDoList);
+	toDoForm.addEventListener("submit", handleToDoSubmit);
