@@ -3,7 +3,7 @@ const toDoInput = document.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
 const TODOS_KEY = "todos"; //todos를 변수로 선언함(오타방지)
-const toDos = [];
+let toDos = [];
 
 function saveToDos() {
 	localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
@@ -41,6 +41,7 @@ function handleToDoSubmit(event) { //submit event(새로고침)
 	const savedToDos = localStorage.getItem(TODOS_KEY);	
 	if(saveToDos !== null) { //localStorage에 값이 없으면 null이 출력됨. //null을 구별하기 위한 if문
 		const parsedToDos = JSON.parse(savedToDos); //string값을 array로 바꿔 parsedToDos에 넣음
-		parsedToDos.forEach((item) => console.log("hi" , item)); //foreach: array에 있는 각각의 item에 대해 실행시킴
+		toDos = parsedToDos;
+		parsedToDos.forEach(paintToDo); 
 	
 	}
