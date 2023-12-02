@@ -11,13 +11,15 @@ function saveToDos() {
 
 function deleteToDo(event) { //X를 클릭할때, event를 얻게 됨
 	const li = event.target.parentElement; //event가 target을 주고, button의 부모에 접근함
+	console.log(li.id);
 	li.remove(); //	button의 부모는 li이므로, li를 삭제 = button을 삭제
 }
 
 function paintToDo(newTodo) {
     const li = document.createElement("li"); //element (li)를 생성함
+	li.id = newTodo.id; 
     const span = document.createElement("span"); //elemnt (span)을 생성
-		span.innerText = newTodo; //text 교체	
+		span.innerText = newTodo.text; //text가 아닌 object를 받기에 text로 나타내야함.
 	const button = document.createElement("button");	
 		button.innerText = "❌";
 		button.addEventListener("click", deleteToDo);
@@ -31,17 +33,21 @@ function handleToDoSubmit(event) { //submit event(새로고침)
     event.preventDefault(); //기본동작 막음
 	    const newTodo = toDoInput.value;
 	    toDoInput.value = "";
-		toDos.push(newTodo);
-	    paintToDo(newTodo); //paintToDo 호출
+		const newTodoObj = { //text와 id를 분리해 obj를 전달
+			text:newTodo,
+			id:Date.now(), //id로 item 구별
+		};
+		toDos.push(newTodoObj);
+	    paintToDo(newTodoObj); //paintToDo 호출
 		saveToDos(); 
 }
 	toDoForm.addEventListener("submit", handleToDoSubmit);
 
 	
 	const savedToDos = localStorage.getItem(TODOS_KEY);	
-	if(saveToDos !== null) { //localStorage에 값이 없으면 null이 출력됨. //null을 구별하기 위한 if문
-		const parsedToDos = JSON.parse(savedToDos); //string값을 array로 바꿔 parsedToDos에 넣음
-		toDos = parsedToDos;
-		parsedToDos.forEach(paintToDo); 
 	
+	if (savedToDos !== null) { //localStorage에 값이 없으면 null이 출력됨. //null을 구별하기 위한 if문
+	const parsedToDos = JSON.parse(savedToDos);
+    toDos = parsedToDos;
+    parsedToDos.forEach(paintToDo);	
 	}
